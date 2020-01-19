@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { API } from 'src/environments/common';
 import { HttpHeaders, HttpParams, HttpClient } from '@angular/common/http';
 import { ApiClient } from '../entity/provider/api-client';
-import { ModelCell } from '../entity/model/s2';
+import { ModelCell, ModelCap, ModelLocation } from '../entity/model/s2';
 import { environment } from 'src/environments/environment';
 
 function u(api: API, path: string): string {
@@ -81,6 +81,42 @@ export class ApiRestfullService extends ApiClient {
       new OptBuilder()
         .param('lat', lat.toString())
         .param('lng', lng.toString())
+        .jsonResponseBody()
+        .gen(),
+    ).toPromise().then(v => {
+      return v as any;
+    });
+  }
+
+  public async getGeoCaps(
+    lat: number,
+    lng: number,
+    radius: number,
+  ): Promise<ModelCap> {
+    return this.http.get(
+      u(environment.api, '/geo/caps'),
+      new OptBuilder()
+        .param('lat', lat.toString())
+        .param('lng', lng.toString())
+        .param('radius', radius.toString())
+        .jsonResponseBody()
+        .gen(),
+    ).toPromise().then(v => {
+      return v as any;
+    });
+  }
+
+  public async getGeoLocations(
+    lat: number,
+    lng: number,
+    radius: number,
+  ): Promise<Array<ModelLocation>> {
+    return this.http.get(
+      u(environment.api, '/geo/locations'),
+      new OptBuilder()
+        .param('lat', lat.toString())
+        .param('lng', lng.toString())
+        .param('radius', radius.toString())
         .jsonResponseBody()
         .gen(),
     ).toPromise().then(v => {

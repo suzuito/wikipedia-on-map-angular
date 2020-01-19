@@ -36,6 +36,10 @@ export class MapListMapComponent implements OnInit {
     return this.mapListService.radius * 1000;
   }
 
+  public get locations(): Array<Marker> {
+    return this.mapListService.locations;
+  }
+
   public clickMap(ev: any) {
     this.mapListService.cursor.lat = ev.coords.lat;
     this.mapListService.cursor.lng = ev.coords.lng;
