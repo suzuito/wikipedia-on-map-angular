@@ -1,0 +1,10 @@
+<div class='main'>
+    <agm-map [latitude]="center.lat" [longitude]="center.lng" [zoom]="15" [disableDefaultUI]="false"
+        [zoomControl]="false" (mapClick)="clickMap($event)">
+        <agm-polygon *ngFor='let cell of cells' [paths]="cell.markers" [fillOpacity]="0" [strokeWeight]='1'>
+        </agm-polygon>
+        <agm-circle *ngIf='cursor' [latitude]='cursor.lat' [longitude]='cursor.lng' [radius]='radius' [strokeWeight]='1'
+            [strokeColor]="'black'">
+        </agm-circle>
+    </agm-map>
+</div>
