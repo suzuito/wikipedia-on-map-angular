@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { ApiClient } from 'src/app/entity/provider/api-client';
-import { ModelCell } from 'src/app/entity/model/s2';
+import { ModelCell, ModelLocation } from 'src/app/entity/model/s2';
 
 export interface LatLng {
+  latitude: number;
+  longitude: number;
+}
+
+interface PolygonPoint {
   lat: number;
   lng: number;
 }
 
-export interface Marker extends LatLng {
-  data: any;
-}
-
-
 export interface Polygon {
-  markers: Array<LatLng>;
+  markers: Array<PolygonPoint>;
 }
 
 function newPolygonFromModelCell(c: ModelCell): Polygon {
@@ -31,20 +31,35 @@ function newPolygonFromModelCell(c: ModelCell): Polygon {
   providedIn: 'root'
 })
 export class MapListService {
-  public center: Marker;
+  public center: LatLng;
   public cursor: LatLng;
   public cells: Array<Polygon>;
   public radius: number;
-  public locations: Array<Marker>;
+  public locations: Array<ModelLocation>;
+  private selectedLocations: Map<string, boolean>;
 
   constructor(
     private apiClient: ApiClient,
   ) {
     this.radius = 1;
-    this.cursor = { lat: 0, lng: 0 };
-    this.center = { lat: 35.6804, lng: 139.7690, data: null };
+    this.cursor = { latitude: 0, longitude: 0 };
+    this.center = { latitude: 35.6804, longitude: 139.7690 };
     this.cells = [];
     this.locations = [];
+    this.selectedLocations = new Map<string, boolean>();
+  }
+
+  public isSelectedLocation(id: string): boolean {
+    return this.selectedLocations.has(id);
+  }
+  public clearSelectedLocation(): void {
+    this.selectedLocations.clear();
+  }
+  public unselectLocation(...ids: Array<string>): void {
+    ids.forEach(id => this.selectedLocations.delete(id));
+  }
+  public selectLocation(...ids: Array<string>): void {
+    ids.forEach(id => this.selectedLocations.set(id, true));
   }
 
   public async getCenterCell(): Promise<void> {
@@ -53,31 +68,22 @@ export class MapListService {
     //   this.cursor.lng,
     // );
     const cells = await this.apiClient.getGeoCells(
-      this.cursor.lat,
-      this.cursor.lng,
+      this.cursor.latitude,
+      this.cursor.longitude,
       this.radius,
     );
     const cap = await this.apiClient.getGeoCaps(
-      this.cursor.lat,
-      this.cursor.lng,
+      this.cursor.latitude,
+      this.cursor.longitude,
       this.radius,
     );
     this.cells = cells.map(v => newPolygonFromModelCell(v));
     this.radius = cap.radius;
 
     this.locations = (await this.apiClient.getGeoLocations(
-      this.cursor.lat,
-      this.cursor.lng,
+      this.cursor.latitude,
+      this.cursor.longitude,
       this.radius,
-    )).map((v: any) => {
-      return {
-        lat: v.latitude,
-        lng: v.longitude,
-        data: {
-          name: v.name,
-        },
-      };
-    });
-    console.log(this.locations);
+    ));
   }
 }

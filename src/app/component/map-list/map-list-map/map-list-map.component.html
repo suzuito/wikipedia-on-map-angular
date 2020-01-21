@@ -1,15 +1,15 @@
 <div class='main'>
-    <agm-map [latitude]="center.lat" [longitude]="center.lng" [zoom]="15" [disableDefaultUI]="false"
+    <agm-map [latitude]="center.latitude" [longitude]="center.longitude" [zoom]="15" [disableDefaultUI]="false"
         [zoomControl]="false" (mapClick)="clickMap($event)">
         <agm-polygon *ngFor='let cell of cells' [paths]="cell.markers" [fillOpacity]="0" [strokeWeight]='1'>
         </agm-polygon>
-        <agm-circle *ngIf='cursor' [latitude]='cursor.lat' [longitude]='cursor.lng' [radius]='radius' [strokeWeight]='1'
-            [strokeColor]="'black'">
+        <agm-circle *ngIf='cursor' [latitude]='cursor.latitude' [longitude]='cursor.longitude' [radius]='radius'
+            [strokeWeight]='1' [strokeColor]="'black'">
         </agm-circle>
-        <agm-marker *ngFor='let loc of locations' [latitude]='loc.lat' [longitude]='loc.lng'>
+        <agm-marker *ngFor='let loc of locations' [latitude]='loc.latitude' [longitude]='loc.longitude'>
             <agm-info-window>
                 <a class='marker-title' target='_blank'
-                    href='https://ja.wikipedia.org/wiki/{{loc.data.name}}'>{{loc.data.name}}</a>
+                    href='https://ja.wikipedia.org/wiki/{{loc.name}}'>{{loc.name}}</a>
             </agm-info-window>
         </agm-marker>
     </agm-map>

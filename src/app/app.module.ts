@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 import {
-  MatToolbarModule, MatIconModule, MatSidenavModule,
+  MatToolbarModule, MatIconModule, MatSidenavModule, MatButtonModule, MatListModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -18,6 +18,7 @@ import { MapListMapComponent } from './component/map-list/map-list-map/map-list-
 import { HttpClientModule } from '@angular/common/http';
 import { ApiRestfullService } from './provider/api-restfull.service';
 import { ApiClient } from './entity/provider/api-client';
+import { MapListListGeoLocationComponent } from './component/map-list/map-list-list-geo-location/map-list-list-geo-location.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ApiClient } from './entity/provider/api-client';
     App1Component,
     MenuComponent,
     MapListComponent,
-    MapListMapComponent
+    MapListMapComponent,
+    MapListListGeoLocationComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +40,8 @@ import { ApiClient } from './entity/provider/api-client';
     MatToolbarModule,
     MatIconModule,
     MatSidenavModule,
+    MatListModule,
+    MatButtonModule,
   ],
   providers: [
     { provide: ApiClient, useClass: ApiRestfullService },

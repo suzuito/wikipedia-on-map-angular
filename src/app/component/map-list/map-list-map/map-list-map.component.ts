@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  Marker,
   Polygon,
   MapListService,
   LatLng,
 } from '../map-list.service';
+import { ModelLocation } from 'src/app/entity/model/s2';
 
 @Component({
   selector: 'app-map-list-map',
@@ -20,7 +20,7 @@ export class MapListMapComponent implements OnInit {
   ngOnInit() {
   }
 
-  public get center(): Marker {
+  public get center(): LatLng {
     return this.mapListService.center;
   }
 
@@ -36,14 +36,15 @@ export class MapListMapComponent implements OnInit {
     return this.mapListService.radius * 1000;
   }
 
-  public get locations(): Array<Marker> {
+  public get locations(): Array<ModelLocation> {
     return this.mapListService.locations;
   }
 
   public clickMap(ev: any) {
-    this.mapListService.cursor.lat = ev.coords.lat;
-    this.mapListService.cursor.lng = ev.coords.lng;
+    this.mapListService.cursor.latitude = ev.coords.lat;
+    this.mapListService.cursor.longitude = ev.coords.lng;
     this.mapListService.getCenterCell();
   }
+
 
 }

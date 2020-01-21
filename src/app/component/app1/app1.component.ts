@@ -8,8 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class App1Component implements OnInit {
 
   public openedSidenav: boolean;
+  public openedList: boolean;
   constructor() {
     this.openedSidenav = false;
+    this.openedList = true;
   }
 
   ngOnInit() {
