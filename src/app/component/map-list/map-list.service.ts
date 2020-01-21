@@ -71,9 +71,11 @@ export class MapListService {
       this.radius,
     )).map((v: any) => {
       return {
-        lat: v.Latitude,
-        lng: v.Longitude,
-        data: null,
+        lat: v.latitude,
+        lng: v.longitude,
+        data: {
+          name: v.name,
+        },
       };
     });
     console.log(this.locations);

@@ -3,7 +3,7 @@ import {
 } from './common';
 
 export const environment = {
-  googleMapAPIKey: 'AIzaSyCGOzmI7YHIy0tX1jOIUniZI-tuO2tY4Sw',
+  googleMapAPIKey: 'AIzaSyCwbecmjTSew_e7RfSNPuH9qBPquNbymcw',
   api: {
     origin: 'http://localhost:8080',
   },

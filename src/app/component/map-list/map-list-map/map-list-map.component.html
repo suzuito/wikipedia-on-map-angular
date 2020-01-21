@@ -6,6 +6,11 @@
         <agm-circle *ngIf='cursor' [latitude]='cursor.lat' [longitude]='cursor.lng' [radius]='radius' [strokeWeight]='1'
             [strokeColor]="'black'">
         </agm-circle>
-        <agm-marker *ngFor='let loc of locations' [latitude]='loc.lat' [longitude]='loc.lng'></agm-marker>
+        <agm-marker *ngFor='let loc of locations' [latitude]='loc.lat' [longitude]='loc.lng'>
+            <agm-info-window>
+                <a class='marker-title' target='_blank'
+                    href='https://ja.wikipedia.org/wiki/{{loc.data.name}}'>{{loc.data.name}}</a>
+            </agm-info-window>
+        </agm-marker>
     </agm-map>
 </div>

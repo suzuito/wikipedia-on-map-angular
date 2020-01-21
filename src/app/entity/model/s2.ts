@@ -20,4 +20,9 @@ export interface ModelCap {
     readonly radius: number;
 }
 
-export interface ModelLocation { }
+export interface ModelLocation {
+    readonly id: string;
+    readonly name: string;
+    readonly latitude: number;
+    readonly longitude: number;
+}
