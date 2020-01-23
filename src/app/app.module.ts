@@ -19,6 +19,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApiRestfullService } from './provider/api-restfull.service';
 import { ApiClient } from './entity/provider/api-client';
 import { MapListListGeoLocationComponent } from './component/map-list/map-list-list-geo-location/map-list-list-geo-location.component';
+import { MapComponent } from './component/map/map.component';
+import { CellComponent } from './component/cell/cell.component';
+import { ListCellComponent } from './component/list-cell/list-cell.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,9 @@ import { MapListListGeoLocationComponent } from './component/map-list/map-list-l
     MapListComponent,
     MapListMapComponent,
     MapListListGeoLocationComponent,
+    MapComponent,
+    CellComponent,
+    ListCellComponent,
   ],
   imports: [
     BrowserModule,
