@@ -22,6 +22,9 @@ import { MapListListGeoLocationComponent } from './component/map-list/map-list-l
 import { MapComponent } from './component/map/map.component';
 import { CellComponent } from './component/cell/cell.component';
 import { ListCellComponent } from './component/list-cell/list-cell.component';
+import { Display001Component } from './component/display001/display001.component';
+import { Display002Component } from './component/display002/display002.component';
+import { MapD3Component } from './component/map-d3/map-d3.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,9 @@ import { ListCellComponent } from './component/list-cell/list-cell.component';
     MapComponent,
     CellComponent,
     ListCellComponent,
+    Display001Component,
+    Display002Component,
+    MapD3Component,
   ],
   imports: [
     BrowserModule,

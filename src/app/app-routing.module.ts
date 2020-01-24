@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { App1Component } from './component/app1/app1.component';
 import { MapListComponent } from './component/map-list/map-list.component';
 import { CellComponent } from './component/cell/cell.component';
+import { Display001Component } from './component/display001/display001.component';
+import { Display002Component } from './component/display002/display002.component';
 
 
 const routes: Routes = [
@@ -10,12 +12,14 @@ const routes: Routes = [
     path: '', component: App1Component,
     children: [
       {
-        path: 'list',
-        component: MapListComponent,
+        path: 'agm',
+        component: Display001Component,
+        children: [],
       },
       {
-        path: 'cell',
-        component: CellComponent,
+        path: 'd3',
+        component: Display002Component,
+        children: [],
       },
     ],
   },
