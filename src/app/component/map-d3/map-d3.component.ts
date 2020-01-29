@@ -3,6 +3,7 @@ import { data as topoJSON } from '../../topo_110m';
 import * as topojson from 'topojson-client';
 
 import * as d3 from 'd3';
+import { ModelCell } from 'src/app/entity/model/s2';
 
 declare const versor: any;
 
@@ -78,6 +79,23 @@ export class MapD3Component implements OnInit {
         this.redisplay(this.selectedProjection);
         this.redisplayOrthographicPoint(centerNewed);
         this.redisplayPoint(this.selectedProjection, centerNewed);
+        redisplayCells(
+          this.svg,
+          this.selectedProjection,
+          [
+            {
+              id: 'hoge',
+              latitude: {
+                lo: 30,
+                hi: 33,
+              },
+              longitude: {
+                lo: 130,
+                hi: 135,
+              },
+            },
+          ],
+        );
       })
       ;
     this.svgOrthographic.call(drag);
@@ -147,6 +165,7 @@ export class MapD3Component implements OnInit {
       projection,
     );
   }
+
 }
 
 function redisplay(
@@ -199,6 +218,39 @@ function redisplay(
 }
 
 
+function redisplayCells(
+  svg: any,
+  geoProjection: any,
+  cells: Array<ModelCell>,
+) {
+  // Display geo data
+  const geoPath = d3.geoPath()
+    .projection(geoProjection);
+  function updatePath(s) {
+    s
+      .attr('id', d => `bound-${d.id}`)
+      .attr('class', 'bound')
+      .attr('stroke', 'gray')
+      .attr('stroke-width', '1')
+      .attr('d', geoPath)
+      .attr('fill', 'red')
+      ;
+  }
+  const polygons = cells.map(v => newPolygonFromCell(v));
+  const geoJSON = {
+    type: 'FeatureCollection',
+    features: polygons,
+  };
+  const sPath = svg.selectAll('.cell').data(geoJSON.features);
+  const sPathEnter = sPath.enter().append('path');
+  const sPathExit = sPath.exit();
+  updatePath(sPath);
+  updatePath(sPathEnter);
+  sPathExit.remove();
+  // Display geo graticule
+}
+
+
 function redisplayPoint(
   svg: any,
   id: string,
@@ -217,4 +269,23 @@ function redisplayPoint(
     .attr('stroke-width', '1')
     .attr('fill', 'black')
     ;
+}
+
+function newPolygonFromCell(cell: ModelCell): any {
+  return {
+    type: 'Feature',
+    properties: [],
+    geometry: {
+      type: 'Polygon',
+      coordinates: [
+        [
+          [cell.longitude.lo, cell.latitude.lo],
+          [cell.longitude.lo, cell.latitude.hi],
+          [cell.longitude.hi, cell.latitude.hi],
+          [cell.longitude.hi, cell.latitude.lo],
+          [cell.longitude.lo, cell.latitude.lo],
+        ],
+      ],
+    },
+  };
 }
