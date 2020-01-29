@@ -1,3 +1,10 @@
 <p>map-d3 works!</p>
 <svg class='orthographic'></svg>
+<div>
+    <mat-button-toggle-group [(value)]='selectedProjectionName'>
+        <mat-button-toggle *ngFor='let n of projectionNames()' [value]='n' aria-label="Text align left">
+            {{n}}
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+</div>
 <svg class='mercator'></svg>

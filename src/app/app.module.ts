@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 import {
-  MatToolbarModule, MatIconModule, MatSidenavModule, MatButtonModule, MatListModule,
+  MatToolbarModule, MatIconModule, MatSidenavModule, MatButtonModule, MatListModule, MatButtonToggleModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -54,6 +54,7 @@ import { MapD3Component } from './component/map-d3/map-d3.component';
     MatSidenavModule,
     MatListModule,
     MatButtonModule,
+    MatButtonToggleModule,
   ],
   providers: [
     { provide: ApiClient, useClass: ApiRestfullService },
