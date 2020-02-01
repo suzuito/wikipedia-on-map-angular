@@ -1,0 +1,10 @@
+<mat-selection-list (selectionChange)='selectItem.emit($event)'>
+    <mat-list-option *ngFor='let loc of locations' [value]='loc' checkboxPosition='before'>
+        <h4 mat-line>
+            {{loc.name}}
+            <a mat-icon-button target='_blank' href='https://ja.wikipedia.org/wiki/{{loc.name}}'>
+                <mat-icon>launch</mat-icon>
+            </a>
+        </h4>
+    </mat-list-option>
+</mat-selection-list>

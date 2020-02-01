@@ -54,23 +54,23 @@ export class ApiRestfullService extends ApiClient {
     super();
   }
 
-  public async getGeoCells(
-    lat: number,
-    lng: number,
-    radius: number,
-  ): Promise<Array<ModelCell>> {
-    return this.http.get(
-      u(environment.api, '/geo/cells/convex'),
-      new OptBuilder()
-        .param('lat', lat.toString())
-        .param('lng', lng.toString())
-        .param('radius', radius.toString())
-        .jsonResponseBody()
-        .gen(),
-    ).toPromise().then(v => {
-      return v as any;
-    });
-  }
+  // public async getGeoCells(
+  //   lat: number,
+  //   lng: number,
+  //   radius: number,
+  // ): Promise<Array<ModelCell>> {
+  //   return this.http.get(
+  //     u(environment.api, '/geo/cells/convex'),
+  //     new OptBuilder()
+  //       .param('lat', lat.toString())
+  //       .param('lng', lng.toString())
+  //       .param('radius', radius.toString())
+  //       .jsonResponseBody()
+  //       .gen(),
+  //   ).toPromise().then(v => {
+  //     return v as any;
+  //   });
+  // }
 
   public async getGeoCellsChildren(
     lat: number,
@@ -117,6 +117,19 @@ export class ApiRestfullService extends ApiClient {
         .param('lat', lat.toString())
         .param('lng', lng.toString())
         .param('radius', radius.toString())
+        .jsonResponseBody()
+        .gen(),
+    ).toPromise().then(v => {
+      return v as any;
+    });
+  }
+
+  public async getGeoCells(face: number, level: number): Promise<Array<ModelCell>> {
+    return this.http.get(
+      u(environment.api, '/geo/cells'),
+      new OptBuilder()
+        .param('level', level.toString())
+        .param('face', face.toString())
         .jsonResponseBody()
         .gen(),
     ).toPromise().then(v => {

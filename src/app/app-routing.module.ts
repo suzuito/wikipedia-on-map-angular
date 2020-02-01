@@ -5,6 +5,7 @@ import { MapListComponent } from './component/map-list/map-list.component';
 import { CellComponent } from './component/cell/cell.component';
 import { Display001Component } from './component/display001/display001.component';
 import { Display002Component } from './component/display002/display002.component';
+import { MapD3GlobeComponent } from './component/map-d3-globe/map-d3-globe.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,12 @@ const routes: Routes = [
       {
         path: 'd3',
         component: Display002Component,
-        children: [],
+        children: [
+          {
+            path: 'globe',
+            component: MapD3GlobeComponent,
+          }
+        ],
       },
     ],
   },

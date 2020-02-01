@@ -93,6 +93,8 @@ export class MapD3Component implements OnInit {
                 lo: 130,
                 hi: 135,
               },
+              center: null,
+              boundLoop: null,
             },
           ],
         );
@@ -247,7 +249,6 @@ function redisplayCells(
   updatePath(sPath);
   updatePath(sPathEnter);
   sPathExit.remove();
-  // Display geo graticule
 }
 
 
@@ -258,7 +259,7 @@ function redisplayPoint(
   lng: number,
   geoProjection: any,
 ) {
-  const p = geoProjection([lat, lng]);
+  const p = geoProjection([lng, lat]);
   svg.select(`#${id}`).remove();
   svg.append('circle')
     .attr('id', id)

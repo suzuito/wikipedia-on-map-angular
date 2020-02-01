@@ -1,10 +1,35 @@
 <div class='main'>
     <div class='top'>
-        <router-outlet></router-outlet>
+        <div class='each'>
+            <mat-form-field>
+                <input matInput type='number' [(ngModel)]="level" placeholder="level">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput type='number' [(ngModel)]="face" placeholder="face">
+            </mat-form-field>
+            <button mat-button (click)='getCells()'>Get Cells</button>
+        </div>
+        <div class='each'>
+            <div>
+                <mat-checkbox [(ngModel)]="d3Service.displayLand">Display land</mat-checkbox>
+            </div>
+            <div>
+                <mat-checkbox [(ngModel)]="d3Service.displayCellBound">Display cell bound</mat-checkbox>
+            </div>
+            <div>
+                <mat-checkbox [(ngModel)]="d3Service.displayCellCenterPath">Display center path</mat-checkbox>
+            </div>
+            <div>
+                <mat-checkbox [(ngModel)]="d3Service.displayGraticule">Display graticule</mat-checkbox>
+            </div>
+        </div>
     </div>
     <div class='bottom'>
         <div class='left'>
+            <!--
             <app-map-d3></app-map-d3>
+            -->
+            <router-outlet></router-outlet>
         </div>
         <div class='right'>
             <app-list-cell></app-list-cell>

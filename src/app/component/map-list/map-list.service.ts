@@ -67,17 +67,17 @@ export class MapListService {
     //   this.cursor.lat,
     //   this.cursor.lng,
     // );
-    const cells = await this.apiClient.getGeoCells(
-      this.cursor.latitude,
-      this.cursor.longitude,
-      this.radius,
-    );
+    // const cells = await this.apiClient.getGeoCells(
+    //   this.cursor.latitude,
+    //   this.cursor.longitude,
+    //   this.radius,
+    // );
     const cap = await this.apiClient.getGeoCaps(
       this.cursor.latitude,
       this.cursor.longitude,
       this.radius,
     );
-    this.cells = cells.map(v => newPolygonFromModelCell(v));
+    // this.cells = cells.map(v => newPolygonFromModelCell(v));
     this.radius = cap.radius;
 
     this.locations = (await this.apiClient.getGeoLocations(

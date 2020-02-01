@@ -8,6 +8,8 @@ export interface ModelCell {
     readonly id: string;
     readonly latitude: ModelInterval;
     readonly longitude: ModelInterval;
+    readonly center: ModelLatLng;
+    readonly boundLoop: ModelLoop;
 }
 
 export interface ModelLatLng {
@@ -25,4 +27,8 @@ export interface ModelLocation {
     readonly name: string;
     readonly latitude: number;
     readonly longitude: number;
+}
+
+export interface ModelLoop {
+    readonly points: Array<ModelLatLng>;
 }

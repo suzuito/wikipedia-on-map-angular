@@ -16,13 +16,14 @@ export abstract class ApiClient {
     lng: number,
     radius: number,
   ): Promise<ModelCap>;
-  public abstract getGeoCells(
-    lat: number,
-    lng: number,
-    radius: number,
-  ): Promise<Array<ModelCell>>;
+  // public abstract getGeoCells(
+  //   lat: number,
+  //   lng: number,
+  //   radius: number,
+  // ): Promise<Array<ModelCell>>;
   public abstract getGeoCellsChildren(
     lat: number,
     lng: number,
   ): Promise<Array<ModelCell>>;
+  public abstract getGeoCells(face: number, level: number): Promise<Array<ModelCell>>;
 }

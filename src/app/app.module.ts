@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 import {
-  MatToolbarModule, MatIconModule, MatSidenavModule, MatButtonModule, MatListModule, MatButtonToggleModule,
+  MatToolbarModule, MatIconModule, MatSidenavModule, MatButtonModule, MatListModule, MatButtonToggleModule, MatInputModule, MatCheckboxModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -25,6 +25,9 @@ import { ListCellComponent } from './component/list-cell/list-cell.component';
 import { Display001Component } from './component/display001/display001.component';
 import { Display002Component } from './component/display002/display002.component';
 import { MapD3Component } from './component/map-d3/map-d3.component';
+import { MapD3GlobeComponent } from './component/map-d3-globe/map-d3-globe.component';
+import { FormsModule } from '@angular/forms';
+import { ListLocComponent } from './component/list-loc/list-loc.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,8 @@ import { MapD3Component } from './component/map-d3/map-d3.component';
     Display001Component,
     Display002Component,
     MapD3Component,
+    MapD3GlobeComponent,
+    ListLocComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,12 +54,15 @@ import { MapD3Component } from './component/map-d3/map-d3.component';
       apiKey: environment.googleMapAPIKey,
     }),
     HttpClientModule,
+    FormsModule,
     MatToolbarModule,
     MatIconModule,
     MatSidenavModule,
     MatListModule,
     MatButtonModule,
     MatButtonToggleModule,
+    MatInputModule,
+    MatCheckboxModule,
   ],
   providers: [
     { provide: ApiClient, useClass: ApiRestfullService },
