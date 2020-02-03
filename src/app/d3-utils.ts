@@ -103,32 +103,37 @@ export function redisplayCells(
     svg: any,
     geoProjection: any,
     cells: Array<ModelCell>,
+    display: boolean,
 ) {
     // Display geo data
     const geoPath = d3.geoPath()
         .projection(geoProjection);
-    function updatePath(s) {
-        s
-            .attr('id', d => `cell-${d.properties.id}`)
-            .attr('class', 'cell')
-            .attr('stroke', '#00CED1')
-            .attr('stroke-width', '2')
-            .attr('d', geoPath)
-            .attr('fill', 'none')
-            // .attr('opacity', 0.5)
-            ;
+    if (display) {
+        function updatePath(s) {
+            s
+                .attr('id', d => `cell-${d.properties.id}`)
+                .attr('class', 'cell')
+                .attr('stroke', '#00CED1')
+                .attr('stroke-width', '2')
+                .attr('d', geoPath)
+                .attr('fill', 'none')
+                // .attr('opacity', 0.5)
+                ;
+        }
+        const polygons = cells.map(v => newPolygonFromCell(v));
+        const geoJSON = {
+            type: 'FeatureCollection',
+            features: polygons,
+        };
+        const sPath = svg.selectAll('.cell').data(geoJSON.features);
+        const sPathEnter = sPath.enter().append('path');
+        const sPathExit = sPath.exit();
+        updatePath(sPath);
+        updatePath(sPathEnter);
+        sPathExit.remove();
+    } else {
+        svg.selectAll('.cell').remove();
     }
-    const polygons = cells.map(v => newPolygonFromCell(v));
-    const geoJSON = {
-        type: 'FeatureCollection',
-        features: polygons,
-    };
-    const sPath = svg.selectAll('.cell').data(geoJSON.features);
-    const sPathEnter = sPath.enter().append('path');
-    const sPathExit = sPath.exit();
-    updatePath(sPath);
-    updatePath(sPathEnter);
-    sPathExit.remove();
 }
 
 export function redisplaySelectedCells(

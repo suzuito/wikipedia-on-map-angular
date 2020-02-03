@@ -1,15 +1,18 @@
 <div class='main'>
+    <!--
     <div class='top'>
-        <div class='each'>
+        <app-map-d3-operator></app-map-d3-operator>
+        <div class='cell-getter'>
             <mat-form-field>
                 <input matInput type='number' [(ngModel)]="level" placeholder="level">
             </mat-form-field>
             <mat-form-field>
                 <input matInput type='number' [(ngModel)]="face" placeholder="face">
             </mat-form-field>
+            <mat-checkbox *ngFor='let faceID of faceIDs' [(ngModel)]='faces[faceID]'>{{faceID}}</mat-checkbox>
             <button mat-button (click)='getCells()'>Get Cells</button>
         </div>
-        <div class='each'>
+        <div class='display-switches'>
             <div>
                 <mat-checkbox [(ngModel)]="d3Service.displayLand">Display land</mat-checkbox>
             </div>
@@ -26,13 +29,12 @@
     </div>
     <div class='bottom'>
         <div class='left'>
-            <!--
-            <app-map-d3></app-map-d3>
-            -->
             <router-outlet></router-outlet>
         </div>
         <div class='right'>
             <app-list-cell></app-list-cell>
         </div>
     </div>
+-->
+    <router-outlet></router-outlet>
 </div>

@@ -10,6 +10,7 @@ export interface ModelCell {
     readonly longitude: ModelInterval;
     readonly center: ModelLatLng;
     readonly boundLoop: ModelLoop;
+    readonly face: number;
 }
 
 export interface ModelLatLng {

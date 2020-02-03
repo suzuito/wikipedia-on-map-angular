@@ -18,27 +18,29 @@ export class MapD3GlobeComponent implements OnInit {
   private projection: d3.GeoProjection;
   private initialProjectionScale: number;
   private svg: any;
-  private svgWidth: number;
-  private svgHeight: number;
 
   constructor(
     private worldService: WorldService,
     private d3Service: MapD3Service,
     private geoStore: GeoStoreService,
   ) {
-    this.svgWidth = 500;
-    this.svgHeight = 500;
     this.d3Service.stateDrag = ({});
     this.d3Service.event.addListener('update-setting', () => this.redisplay());
   }
 
   ngOnInit() {
-    this.svg = d3.select('#main');
+    this.svg = d3.select('#main')
+      .attr('width', this.d3Service.getSvgWidth())
+      .attr('height', this.d3Service.getSvgHeight())
+      ;
     this.projection = d3.geoOrthographic()
       .rotate([110, -40, 30])
       .fitExtent([
         [5, 5],
-        [this.svgWidth - 5, this.svgHeight - 5]
+        [
+          this.d3Service.getSvgWidth() - 5,
+          this.d3Service.getSvgHeight() - 5,
+        ]
       ], { type: 'Sphere' })
       .precision(0.1)
       ;
@@ -63,8 +65,8 @@ export class MapD3GlobeComponent implements OnInit {
         );
         this.projection = this.projection.rotate(versor.rotation(q1));
         const centerNewed = this.projection.invert([
-          this.svgWidth / 2,
-          this.svgHeight / 2,
+          this.d3Service.getSvgWidth() / 2,
+          this.d3Service.getSvgHeight() / 2,
         ]);
         this.d3Service.center = centerNewed;
         this.redisplay();
@@ -94,19 +96,18 @@ export class MapD3GlobeComponent implements OnInit {
     redisplay(
       this.svg,
       this.projection,
-      this.svgWidth,
-      this.svgHeight,
+      this.d3Service.getSvgWidth(),
+      this.d3Service.getSvgHeight(),
       this.d3Service.displayLand,
       this.d3Service.displayGraticule,
       this.worldService.geoJSON,
     );
-    if (this.d3Service.displayCellBound) {
-      redisplayCells(
-        this.svg,
-        this.projection,
-        this.geoStore.getCells(),
-      );
-    }
+    redisplayCells(
+      this.svg,
+      this.projection,
+      this.geoStore.getCells(),
+      this.d3Service.displayCellBound,
+    );
     redisplayLine(
       this.svg,
       this.projection,

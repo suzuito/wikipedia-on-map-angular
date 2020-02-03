@@ -95,6 +95,7 @@ export class MapD3Component implements OnInit {
               },
               center: null,
               boundLoop: null,
+              face: -1,
             },
           ],
         );

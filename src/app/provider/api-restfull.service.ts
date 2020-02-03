@@ -124,12 +124,12 @@ export class ApiRestfullService extends ApiClient {
     });
   }
 
-  public async getGeoCells(face: number, level: number): Promise<Array<ModelCell>> {
+  public async getGeoCells(faces: Array<number>, level: number): Promise<Array<ModelCell>> {
     return this.http.get(
       u(environment.api, '/geo/cells'),
       new OptBuilder()
         .param('level', level.toString())
-        .param('face', face.toString())
+        .param('faces', faces.join(','))
         .jsonResponseBody()
         .gen(),
     ).toPromise().then(v => {

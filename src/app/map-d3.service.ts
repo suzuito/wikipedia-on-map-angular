@@ -34,11 +34,16 @@ export class MapD3Service {
     this.displayLandPrivate = s;
     this.event.emit('update-setting');
   }
+
+  private svgWidth: number;
+  private svgHeight: number;
   public stateDrag: any;
 
   public event: EventEmitter;
   private selectedCellIDs: Set<string>;
   private cursorCellID: string;
+
+  private projectionPlanar: d3.GeoProjection;
 
   constructor(
     private apiClient: ApiClient,
@@ -52,10 +57,32 @@ export class MapD3Service {
     this.displayLandPrivate = true;
     this.stateDrag = ({});
     this.selectedCellIDs = new Set<string>();
+    this.svgHeight = 500;
+    this.svgWidth = 500;
   }
 
-  public async getGeoCells(face: number, level: number): Promise<void> {
-    const cells = await this.apiClient.getGeoCells(face, level);
+  public setSvgWidth(v: number): void {
+    this.svgWidth = v;
+  }
+  public getSvgWidth(): number {
+    return this.svgWidth;
+  }
+  public setSvgHeight(v: number): void {
+    this.svgHeight = v;
+  }
+  public getSvgHeight(): number {
+    return this.svgHeight;
+  }
+
+  public setProjectionPlanar(p: d3.GeoProjection): void {
+    this.projectionPlanar = p;
+  }
+  public getProjectionPlanar(): d3.GeoProjection {
+    return this.projectionPlanar;
+  }
+
+  public async getGeoCells(faces: Array<number>, level: number): Promise<void> {
+    const cells = await this.apiClient.getGeoCells(faces, level);
     this.geoStore.setCells(...cells);
   }
 

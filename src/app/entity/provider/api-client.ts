@@ -25,5 +25,5 @@ export abstract class ApiClient {
     lat: number,
     lng: number,
   ): Promise<Array<ModelCell>>;
-  public abstract getGeoCells(face: number, level: number): Promise<Array<ModelCell>>;
+  public abstract getGeoCells(face: Array<number>, level: number): Promise<Array<ModelCell>>;
 }

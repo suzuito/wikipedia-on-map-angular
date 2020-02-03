@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 import {
-  MatToolbarModule, MatIconModule, MatSidenavModule, MatButtonModule, MatListModule, MatButtonToggleModule, MatInputModule, MatCheckboxModule,
+  MatToolbarModule, MatIconModule, MatSidenavModule, MatButtonModule, MatListModule, MatButtonToggleModule, MatInputModule, MatCheckboxModule, MatCardModule, MatSelectModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -28,6 +28,13 @@ import { MapD3Component } from './component/map-d3/map-d3.component';
 import { MapD3GlobeComponent } from './component/map-d3-globe/map-d3-globe.component';
 import { FormsModule } from '@angular/forms';
 import { ListLocComponent } from './component/list-loc/list-loc.component';
+import { MapD3OperatorComponent } from './component/map-d3-operator/map-d3-operator.component';
+import { MapD3OperatorDisplayS2CellsComponent } from './component/map-d3-operator/map-d3-operator-display-s2-cells/map-d3-operator-display-s2-cells.component';
+import { MapD3CellsComponent } from './component/map-d3-cells/map-d3-cells.component';
+import { MapD3OperatorFilterGeoJsonComponent } from './component/map-d3-operator/map-d3-operator-filter-geo-json/map-d3-operator-filter-geo-json.component';
+import { MapD3OperatorChangeGeoProjectionComponent } from './component/map-d3-operator/map-d3-operator-change-geo-projection/map-d3-operator-change-geo-projection.component';
+import { MapD3PlanarComponent } from './component/map-d3-planar/map-d3-planar.component';
+import { MapD3OperatorMenuComponent } from './component/map-d3-operator/map-d3-operator-menu/map-d3-operator-menu.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +52,13 @@ import { ListLocComponent } from './component/list-loc/list-loc.component';
     MapD3Component,
     MapD3GlobeComponent,
     ListLocComponent,
+    MapD3OperatorComponent,
+    MapD3OperatorDisplayS2CellsComponent,
+    MapD3CellsComponent,
+    MapD3OperatorFilterGeoJsonComponent,
+    MapD3OperatorChangeGeoProjectionComponent,
+    MapD3PlanarComponent,
+    MapD3OperatorMenuComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +77,8 @@ import { ListLocComponent } from './component/list-loc/list-loc.component';
     MatButtonToggleModule,
     MatInputModule,
     MatCheckboxModule,
+    MatCardModule,
+    MatSelectModule,
   ],
   providers: [
     { provide: ApiClient, useClass: ApiRestfullService },

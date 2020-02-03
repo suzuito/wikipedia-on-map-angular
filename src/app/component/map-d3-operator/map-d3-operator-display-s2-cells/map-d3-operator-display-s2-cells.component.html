@@ -1,0 +1,21 @@
+<mat-card>
+    <mat-card-content>
+        <div class='each'>
+            <div>Select level of s2.Cell</div>
+            <mat-form-field>
+                <mat-select required [(value)]='selectedLevel'>
+                    <mat-option *ngFor='let level of levels' [value]="level">{{level}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class='each'>
+            <div>Select faces of s2.Cell</div>
+            <span *ngFor='let face of faces' class='face-selector'>
+                <mat-checkbox [(ngModel)]='selectedFaces[face]'>Face{{face}}</mat-checkbox>
+            </span>
+        </div>
+        <div class='each'>
+            <button mat-button (click)='getCells()'>Get Cells</button>
+        </div>
+    </mat-card-content>
+</mat-card>
