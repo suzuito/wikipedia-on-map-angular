@@ -43,9 +43,7 @@ export class MapD3Service {
   private selectedCellIDs: Set<string>;
   private cursorCellID: string;
 
-  private projectionPlanar: d3.GeoProjection;
-  public zoomTransformK: number;
-  public initialPlanarProjectionScale: number;
+  public zoomK: number;
 
   constructor(
     private apiClient: ApiClient,
@@ -61,8 +59,7 @@ export class MapD3Service {
     this.selectedCellIDs = new Set<string>();
     this.svgHeight = 500;
     this.svgWidth = 500;
-    this.zoomTransformK = null;
-    this.initialPlanarProjectionScale = null;
+    this.zoomK = null;
   }
 
   public setSvgWidth(v: number): void {
@@ -76,13 +73,6 @@ export class MapD3Service {
   }
   public getSvgHeight(): number {
     return this.svgHeight;
-  }
-
-  public setProjectionPlanar(p: d3.GeoProjection): void {
-    this.projectionPlanar = p;
-  }
-  public getProjectionPlanar(): d3.GeoProjection {
-    return this.projectionPlanar;
   }
 
   public async getGeoCells(faces: Array<number>, level: number): Promise<void> {
