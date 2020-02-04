@@ -44,6 +44,8 @@ export class MapD3Service {
   private cursorCellID: string;
 
   private projectionPlanar: d3.GeoProjection;
+  public zoomTransformK: number;
+  public initialPlanarProjectionScale: number;
 
   constructor(
     private apiClient: ApiClient,
@@ -59,6 +61,8 @@ export class MapD3Service {
     this.selectedCellIDs = new Set<string>();
     this.svgHeight = 500;
     this.svgWidth = 500;
+    this.zoomTransformK = null;
+    this.initialPlanarProjectionScale = null;
   }
 
   public setSvgWidth(v: number): void {

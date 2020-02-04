@@ -15,7 +15,6 @@ export class MapD3PlanarComponent implements OnInit {
 
   private svg: any;
   private projection: d3.GeoProjection;
-  private initialProjectionScale: number;
 
   constructor(
     private worldService: WorldService,
@@ -27,30 +26,12 @@ export class MapD3PlanarComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.route.fragment.subscribe((fragment: string) => {
-    //   switch (fragment) {
-    //     case 'EqualEarth':
-    //       this.projection = d3.geoEqualEarth();
-    //       break;
-    //   }
-    //   this.redisplay();
-    // });
-    // const fragment = await this.route.fragment.toPromise();
-    // console.log(fragment);
-    this.projection = d3.geoMercator();
-    this.svg = d3.select('#main')
-      .attr('width', this.d3Service.getSvgWidth())
-      .attr('height', this.d3Service.getSvgHeight())
-      ;
-    this.projection.center(this.d3Service.center)
-      // .translate([
-      //   this.d3Service.getSvgWidth() / 2,
-      //   this.d3Service.getSvgHeight() / 2,
-      // ])
-      ;
-    let moving = false;
-    this.initialProjectionScale = this.projection.scale();
-    let dragStart: [number, number] = [0, 0];
+    this.route.fragment.subscribe((fragment: string) => {
+      this.initializeProjection(fragment);
+      this.redisplay();
+    });
+    // this.initialProjectionScale = this.projection.scale();
+    // let dragStart: [number, number] = [0, 0];
     this.svg.on('click', () => {
       // this.projection.center(this.projection.invert(d3.mouse(this.svg.node())));
       // this.redisplay();
@@ -86,9 +67,13 @@ export class MapD3PlanarComponent implements OnInit {
         // console.log(dragEndLL);
         // this.redisplay();
       });
+    let moving = false;
     const zoom = d3.zoom()
       .on('zoom', () => {
-        this.projection.scale(this.initialProjectionScale * d3.event.transform.k);
+        console.log(d3.event.transform.k);
+        this.d3Service.zoomTransformK = d3.event.transform.k;
+        // this.projection.scale(this.d3Service.initialPlanarProjectionScale * d3.event.transform.k);
+        // this.d3Service.initialPlanarProjectionScale = this.projection.scale();
         this.redisplay();
       })
       .on('start', () => {
@@ -103,10 +88,34 @@ export class MapD3PlanarComponent implements OnInit {
       .call(drag)
       .call(zoom)
       ;
-    this.redisplay();
+    // this.redisplay();
+  }
+
+  public initializeProjection(fragment: string): void {
+    switch (fragment) {
+      case 'Mercator':
+        this.projection = d3.geoMercator();
+        break;
+      case 'EqualEarth':
+        this.projection = d3.geoEqualEarth();
+        break;
+      default:
+        this.projection = d3.geoMercator();
+        break;
+    }
+    this.svg = d3.select('#main')
+      .attr('width', this.d3Service.getSvgWidth())
+      .attr('height', this.d3Service.getSvgHeight())
+      ;
+    if (!this.d3Service.zoomTransformK) {
+      this.d3Service.zoomTransformK = 1;
+      this.d3Service.initialPlanarProjectionScale = this.projection.scale();
+    }
+    this.projection.center(this.d3Service.center);
   }
 
   public redisplay(): void {
+    this.projection.scale(this.d3Service.initialPlanarProjectionScale * this.d3Service.zoomTransformK);
     redisplay(
       this.svg,
       this.projection,
